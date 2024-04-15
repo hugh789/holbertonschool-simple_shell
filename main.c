@@ -1,76 +1,47 @@
 #include "main.h"
 /**
- * main - execution
- * Return: 0
+ * main - main function
+ * @argc: argc
+ * @argv: argv
+ *
+ * Return: Shell.
  */
-int main(void)
+
+int main(int argc, char *argv[])
 {
+	char *prompt = NULL;
+	char *filename = argv[0];
+	size_t len;
+	int user_input = 0;
+	int last_command_status = 0;
+	(void)argc;
 
-	char *ln, **command;
-	int st = 1;
+	signal(SIGINT, SIG_IGN);
 
-	signal(SIGINT, handler_function);
-	do
-
+	while (user_input != -1)
 	{
 		if (isatty(STDIN_FILENO))
 			printf("$ ");
 
-		else
-		{
-			ln = getln();
-			command = formatln(ln);
-			search_exe(command);
-			launch_process(command);
-			free(ln);
-			free(command);
-			return (0);
-		}
+		fflush(stdin);
+		user_input = getline(&prompt, &len, stdin);
 
-		ln = getln();
-		command = formatln(ln);
-		if (*command == NULL)
+		if (user_input == -1 || !prompt || len < 2)
 		{
-			free(ln);
-			free(command);
+			free(prompt);
 			continue;
 		}
-		search_exe(command);
-		st = launch_process(command);
-		free(ln);
-		free(command);
 
-	} while (st);
+		if (strncmp(prompt, "exit", 4) == 0)
+		{
+			free(prompt);
+			exit(last_command_status);
+			break;
+		}
 
-	return (0);
-}
+		if (strcmp(prompt, "\n") != 0)
+			last_command_status = input_command(&prompt, filename);
 
-/**
- * launch_process - execute command
- * @command: command
- * Return: 1
- */
-int launch_process(char **command)
-{
-	pid_t pid;
-
-	pid = fork();
-	if (pid == 0 && execve(command[0], command, environ) == -1)
-		perror("./shell");
-
-	else
-		wait(&pid);
-
-	return (1);
-}
-/**
- * handler_function - handle signit
- * @i: integer
- */
-void handler_function(int i)
-{
-	if (i)
-	{
-		write(STDOUT_FILENO, "\n$ ", strlen("\n$ "));
 	}
+	return (0);
 }
