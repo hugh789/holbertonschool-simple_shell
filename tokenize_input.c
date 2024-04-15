@@ -1,4 +1,4 @@
-
+y
 #include "main.h"
 /**
  * input_command - function that input command
