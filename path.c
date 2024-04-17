@@ -36,16 +36,16 @@ char *path_command(char *command)
                     return NULL;
                 }
                 
-                ptr[0] = '\0'; // Initialize the string to ensure safe string concatenation
+                ptr[0] = '\0'; 
                 assembly_command(token, command, &ptr);
 
-                if (stat(ptr, &sb) == 0) // Check if the file exists and is executable
+                if (stat(ptr, &sb) == 0) 
                 {
                     free(cache);
-                    return ptr; // Return the valid command path
+                    return ptr; 
                 }
                 
-                free(ptr); // Free allocated memory if not a valid path
+                free(ptr); 
                 token = strtok(NULL, ":");
             }
             free(cache);
@@ -56,4 +56,5 @@ char *path_command(char *command)
     }
     return NULL;
 }
+
 
