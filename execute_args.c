@@ -1,10 +1,10 @@
 #include "main.h"
 
 /**
- * execute_args - determine if command is a builtin or a process
+ * execute_args - map if command is a builtin or a process
  * @args: command and its flags
  *
- * Return: 1 on success, 0 otherwise
+ * Return: 1 on sucess, 0 otherwise
  */
 int execute_args(char **args)
 {
@@ -20,19 +20,22 @@ int execute_args(char **args)
 		&own_help,
 		&own_exit
 	};
-	size_t num_builtins = sizeof(builtin_func_list) / sizeof(char *);
+	long unsigned int i = 0;
 
 	if (args[0] == NULL)
-		return (-1); /* empty command was entered */
-
+	{
+		/* empty command was entered */
+		return (-1);
+	}
 	/* find if the command is a builtin */
-	for (size_t i = 0; i < num_builtins; i++)
+	for (; i < sizeof(builtin_func_list) / sizeof(char *); i++)
 	{
 		/* if there is a match execute the builtin command */
 		if (strcmp(args[0], builtin_func_list[i]) == 0)
+		{
 			return ((*builtin_func[i])(args));
+		}
 	}
-
 	/* create a new process */
 	return (new_process(args));
 }
