@@ -1,4 +1,4 @@
-#include "shell.h"
+#include "main.h"
 
 /**
  * split_line split a string from read_line into multiple strings - tokenizes
