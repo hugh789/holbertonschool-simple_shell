@@ -17,6 +17,7 @@ char *read_stream(void)
 		fprintf(stderr, "allocation error in read_stream");
 		exit(EXIT_FAILURE);
 	}
+
 	while (1)
 	{
 		character = getchar(); /* read first char from stream */
