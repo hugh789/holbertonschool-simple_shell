@@ -1,18 +1,37 @@
-#ifndef MAIN
-#define MAIN
-#include <stdlib.h>
+#ifndef SHELL_H
+#define SHELL_H
+
+/*---LIBRARIES---*/
 #include <stdio.h>
 #include <unistd.h>
+#include <stdlib.h>
 #include <string.h>
-#include <sys/types.h>
 #include <sys/wait.h>
-#include <sys/stat.h>
+
+/*---Macros---*/
+#define TOK_DELIM " \t\r\n\a\""
 extern char **environ;
-int input_command(char **line, char *filename);
-int execute_command(char **commands, char *filename);
-int requirement_command(char **commands, char *filename);
-int is_path(char *path_command);
-char *path_command(char *execute_command);
-void assembly_command(char *directory, char *command, char **output);
-void env_command(void);
+
+/*---PROTOTYPES---*/
+/* main.c */
+void shell_interactive(void);
+void shell_no_interactive(void);
+
+/* shell_interactive.c */
+char *read_line(void);
+char **split_line(char *line);
+int execute_args(char **args);
+
+/* execute_args */
+int new_process(char **args);
+
+/* shell_no_interactive */
+char *read_stream(void);
+
+/*---Builtin func---*/
+int own_cd(char **args);
+int own_exit(char **args);
+int own_env(char **args);
+int own_help(char **args);
+
 #endif

@@ -1,47 +1,20 @@
-#include "main.h"
+#include "shell.h"
+
 /**
- * main - main function
- * @argc: argc
- * @argv: argv
- *
- * Return: Shell.
+ * main - function that checks if our shell is called
+ * Program calls shell_interactive (displays,reads input,executes & repeats)
+ * Return: 0 on success
  */
-
-int main(int argc, char *argv[])
+int main(void)
 {
-	char *prompt = NULL;
-	char *filename = argv[0];
-	size_t len;
-	int user_input = 0;
-	int last_command_status = 0;
-	(void)argc;
-
-	signal(SIGINT, SIG_IGN);
-
-	while (user_input != -1)
+	/* determines if file descriptor is associated with a terminal */
+	if (isatty(STDIN_FILENO) == 1)
 	{
-		if (isatty(STDIN_FILENO))
-			printf("$ ");
-
-		fflush(stdin);
-		user_input = getline(&prompt, &len, stdin);
-
-		if (user_input == -1 || !prompt || len < 2)
-		{
-			free(prompt);
-			continue;
-		}
-
-		if (strncmp(prompt, "exit", 4) == 0)
-		{
-			free(prompt);
-			exit(last_command_status);
-			break;
-		}
-
-		if (strcmp(prompt, "\n") != 0)
-			last_command_status = input_command(&prompt, filename);
-
+		shell_interactive();
+	}
+	else
+	{
+		shell_no_interactive();
 	}
 	return (0);
 }
