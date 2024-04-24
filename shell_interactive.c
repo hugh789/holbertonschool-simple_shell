@@ -13,7 +13,7 @@ void shell_interactive(void)
 
 	do {
 		printf("simple_prompts$"); /* print prompt symbol */
-		line = read_line(); /* read line from stdin*/
+		line = read_stdin(); /* read line from stdin*/
 		args = split_line(line); /* tokenize line*/
 		status = execute_args(args);
 		/* avoid memory leaks */

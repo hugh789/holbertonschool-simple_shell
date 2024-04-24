@@ -12,7 +12,7 @@ void shell_no_interactive(void)
 	int status = -1;
 
 	do {
-		line = read_stream();
+		line = read_stdin();
 		args = split_line(line); /* tokenize line */
 		status = execute_args(args);
 		/* avoid memory leaks */
