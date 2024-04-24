@@ -1,16 +1,15 @@
 #include "main.h"
 
 /**
- * read_stream - read a line from the stream
+ * read_stream - Reads a line from the stream.
  *
- * Return: pointer that points the the read line
+ * Return: A pointer to the read line.
  */
 char *read_stream(void)
 {
 	int bufsize = 1024;
 	int i = 0;
 	char *line = malloc(sizeof(char) * bufsize);
-	int character;
 
 	if (line == NULL)
 	{
@@ -20,22 +19,21 @@ char *read_stream(void)
 
 	while (1)
 	{
-		character = scanf(); /* read first char from stream */
-		if (character == EOF)
+		if (fgets(&line[i], bufsize - i, stdin) == NULL)
 		{
 			free(line);
-			exit(EXIT_SUCCESS);
+			exit(EXIT_SUCCESS); /* Assuming EOF should exit */
 		}
-		else if (character == '\n')
+
+		char *nl_pos = strchr(&line[i], '\n');
+		if (nl_pos != NULL)
 		{
-			line[i] = '\0';
+			*nl_pos = '\0';
 			return (line);
 		}
-		else
-		{
-			line[i] = character;
-		}
-		i++;
+
+		i += strlen(&line[i]);
+
 		if (i >= bufsize)
 		{
 			bufsize += bufsize;
@@ -47,4 +45,6 @@ char *read_stream(void)
 			}
 		}
 	}
+
+	return (NULL); /* Never reaches here */
 }
