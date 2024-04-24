@@ -25,6 +25,9 @@ int execute_args(char **args);
 /* execute_args */
 int new_process(char **args);
 
+/* read_stdin */
+int requirement_command(char **commands, char *filename);
+
 /* shell_no_interactive */
 char *read_stream(void);
 

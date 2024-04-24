@@ -1,49 +1,41 @@
 #include "main.h"
-
 /**
- * read_stream - read a line from the stream
+ * input_command - function that input command
+ * @prompt: prompt
+ * @filename: filename
  *
- * Return: pointer that points the the read line
+ * Return: Nothing.
  */
-char *read_stream(void)
+int input_command(char **prompt, char *filename)
 {
-	int bufsize = 1024;
-	int i = 0;
-	char *line = malloc(sizeof(char) * bufsize);
-	int character;
+	char *split_text;
+	int index = 0;
+	char *arguments[1024] = {NULL};
+	int is_exit = 0;
 
-	if (line == NULL)
+	split_text = strtok(*prompt, " \t\n\r");
+	while (split_text)
 	{
-		fprintf(stderr, "allocation error in read_stream");
-		exit(EXIT_FAILURE);
+		if (strlen(split_text) > 0)
+		{
+			arguments[index] = split_text;
+			index += 1;
+		}
+		if (strcmp(split_text, "exit") == 0)
+			is_exit = 1;
+		split_text = strtok(NULL, " \t\n\r");
 	}
-	while (1)
+	if (!arguments[0])
+		return (0);
+	if (!requirement_command(arguments, filename))
 	{
-		character = getchar(); /* read first char from stream */
-		if (character == EOF)
+		free(*prompt);
+		if (!isatty(STDIN_FILENO))
 		{
-			free(line);
-			exit(EXIT_SUCCESS);
-		}
-		else if (character == '\n')
-		{
-			line[i] = '\0';
-			return (line);
-		}
-		else
-		{
-			line[i] = character;
-		}
-		i++;
-		if (i >= bufsize)
-		{
-			bufsize += bufsize;
-			line = realloc(line, bufsize);
-			if (line == NULL)
-			{
-				fprintf(stderr, "reallocation error in read_stream");
-				exit(EXIT_FAILURE);
-			}
+			if (!is_exit)
+				exit(127);
+			exit(2);
 		}
 	}
+	return (2);
 }
