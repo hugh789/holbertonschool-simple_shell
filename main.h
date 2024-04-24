@@ -27,6 +27,7 @@ int new_process(char **args);
 
 /* read_stdin */
 int requirement_command(char **commands, char *filename);
+int input_command(char **line, char *filename);
 
 /* shell_no_interactive */
 char *read_stream(void);
