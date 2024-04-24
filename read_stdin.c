@@ -20,7 +20,7 @@ char *read_stream(void)
 
 	while (1)
 	{
-		character = fgets(); /* read first char from stream */
+		character = scanf(); /* read first char from stream */
 		if (character == EOF)
 		{
 			free(line);
