@@ -1,42 +1,56 @@
-#include "main.h"
+#include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
+#define BUFSIZE 1024
 
 /**
- * input_command - function that input command
- * @prompt: prompt
- * @filename: filename
+ * _read_stream - Read a line from standard input using dynamic memory
+ * allocation.
  *
- * Return: Nothing.
+ * Description:
+ * This function reads characters from standard input and dynamically allocates
+ * memory to store the line. The buffer size starts at BUFSIZE and grows if
+ * needed.
+ * It returns the read line as a dynamically allocated string or NULL on error
+ * or end of file.
+ *
+ * Return:
+ * A dynamically allocated string containing the read line, or NULL on error
+ * or end of file.
  */
-int input_command(char **prompt, char *filename)
+char *_read_stream()
 {
-	char *split_text;
-	int index = 0;
-	char *arguments[1024] = {NULL};
-	int is_exit = 0;
+	int bufsize = BUFSIZE, i = 0, ch;
+	char *line = malloc(bufsize * sizeof(char));
 
-	split_text = strtok(*prompt, " \t\n\r");
-	while (split_text)
+	if (line == NULL)
 	{
-		if (strlen(split_text) > 0)
-		{
-			arguments[index] = split_text;
-			index += 1;
-		}
-		if (strcmp(split_text, "exit") == 0)
-			is_exit = 1;
-		split_text = strtok(NULL, " \t\n\r");
+		perror("memory allocation failed in _read_stream\n");
+		return (NULL);
 	}
-	if (!arguments[0])
-		return (0);
-	if (!requirement_command(arguments, filename))
+
+	while ((ch = getchar()) != EOF)
 	{
-		free(*prompt);
-		if (!isatty(STDIN_FILENO))
+		line[i++] = ch;
+
+		if (ch == '\n')
 		{
-			if (!is_exit)
-				exit(127);
-			exit(2);
+			line[i] = '\0';
+			return (line);
+		}
+
+		if (i >= bufsize)
+		{
+			bufsize += bufsize / 2;
+			line = realloc(line, bufsize);
+			if (line == NULL)
+			{
+				fprintf(stderr, "reallocation error in read_stream");
+				return (NULL);
+			}
 		}
 	}
-	return (2);
+
+	free(line);
+	return (NULL);
 }
