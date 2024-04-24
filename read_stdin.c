@@ -1,39 +1,40 @@
-#include "main.h"
+#include "shell.h"
 
 /**
- * read_stream - Reads a line from the stream.
+ * read_stream - read a line from the stream
  *
- * Return: A pointer to the read line.
+ * Return: pointer that points the the read line
  */
 char *read_stream(void)
 {
 	int bufsize = 1024;
 	int i = 0;
 	char *line = malloc(sizeof(char) * bufsize);
+	int character;
 
 	if (line == NULL)
 	{
 		fprintf(stderr, "allocation error in read_stream");
 		exit(EXIT_FAILURE);
 	}
-
 	while (1)
 	{
-		if (fgets(&line[i], bufsize - i, stdin) == NULL)
+		character = getchar(); /* read first char from stream */
+		if (character == EOF)
 		{
 			free(line);
-			exit(EXIT_SUCCESS); /* Assuming EOF should exit */
+			exit(EXIT_SUCCESS);
 		}
-
-		char *nl_pos = strchr(&line[i], '\n');
-		if (nl_pos != NULL)
+		else if (character == '\n')
 		{
-			*nl_pos = '\0';
+			line[i] = '\0';
 			return (line);
 		}
-
-		i += strlen(&line[i]);
-
+		else
+		{
+			line[i] = character;
+		}
+		i++;
 		if (i >= bufsize)
 		{
 			bufsize += bufsize;
@@ -45,6 +46,4 @@ char *read_stream(void)
 			}
 		}
 	}
-
-	return (NULL); /* Never reaches here */
 }
