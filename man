@@ -1,0 +1,52 @@
+NAME
+            hsh - A simple shell program
+SYNOPSIS
+            hsh
+
+DESCRIPTION
+            .hsh 
+            is a custom UNIX command line interpreter, built entirely with C language that provides a command-line interface. It executes commands read from the standard input. Memory management and ‘end of file’ conditions have been handled. 
+
+OPTIONS
+            None.
+
+FEATURES
+            Interactive Shell: hsh operates in an interactive mode, prompting the user for commands with a $ symbol.
+            
+            Command Execution: Users can enter commands and arguments, separated by spaces. hsh parses the input and attempts to execute the command.
+
+            Built-in Commands: hsh currently supports two built-in commands:    
+            env: Prints the environment variables.
+            exit: Exits the shell program.
+
+            Command Path Handling: hsh searches for executable commands in the PATH environment variable. 
+            If a command is not found in the PATH, it displays an error message.
+
+            Error Handling: hsh provides basic error handling for situations like commands not found, allocation failures, and forking errors.
+
+EXAMPLES
+            List environment variables:
+            $ env
+            HOME=/home/user
+            PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+            ...
+            Exit the shell:
+            $ exit
+            
+            Execute a program located in the PATH:
+            $ ls
+            ... (output of the ls command)
+            
+            Attempt to execute a program not found in the PATH:
+            $ not_found_command
+            ./hsh: 1: not_found_command: not found
+
+SEE ALSO
+
+bash(1)
+
+AUTHORS 
+- [Hugh Fagan](https://github.com/hugh789)
+- [Susmitha Banda](https://github.com/Susmitha-Banda)
+
+
