@@ -1,4 +1,10 @@
 # C -  Simple Shell
+A shell is typically used to allow users to run other programs in a friendly environment, often offering features such as command
+history and job control. Shells are also interpreters, running programs written using the shell’s
+language (shell scripts).
+
+This project, simple_shell, is a custom implementation of a simple UNIX shell as a requirement to complete the first sprint in Holberton school's 9-month SE program. Taking a minimalistic approach, the following functions have been implemented: access, execve, exit, fork, free, fstat, getline, malloc, perror, signal, stat, wait, write.
+
 
 ## Learning Goals For This Project
 - Who designed and implemented the original Unix operating system
@@ -23,10 +29,10 @@
 4. [Compilation](#Compilation)
 5. [Testing](#testing)
 6. [Checks](#checks)
-7. [Simple Shell Dream Team](#sparkles-simple-shell-dream-team-sparkles)
+7. [Simple Shell Team](#simple-shell-dream-team)
 
 ## Description
-This program is a custom implementation of the SHELL command line language interpreter. It was created as part of the final group project for sprint 1 Holberton School Australia Cohort 23.
+This project is a customized version of a tool that understands and executes commands you type into a computer. We built it as part of our final group project for the first phase of our studies at Holberton School Australia Cohort 23.
 
 ## Output
 - Unless specified otherwise, your program **must have the exact same output as** ```sh (/bin/sh)``` as well as the exact same error output.
@@ -151,6 +157,6 @@ hsh main.c shell.c test_ls_2
 $
 ```
 
-### :sparkles: Simple Shell Team :sparkles:
+### Simple Shell Team 
 - [Hugh Fagan](https://github.com/hugh789)
 - [Susmitha Banda](https://github.com/Susmitha-Banda)
