@@ -26,10 +26,11 @@ This project, simple_shell, is a custom implementation of a simple UNIX shell as
 1. [Description](#description)
 2. [Output](#output)
 3. [List of allowed functions and system calls](#list-of-allowed-functions-and-system-calls)
-4. [Compilation](#Compilation)
-5. [Testing](#testing)
-6. [Checks](#checks)
-7. [Simple Shell Team](#simple-shell-dream-team)
+4. [Flowchart](#flowchart)
+5. [Compilation](#Compilation)
+6. [Testing](#testing)
+7. [Checks](#checks)
+8. [Simple Shell Contributors](#contirbutors)
 
 ## Description
 This project is a customized version of a tool that understands and executes commands you type into a computer. We built it as part of our final group project for the first phase of our studies at Holberton School Australia Cohort 23.
@@ -96,6 +97,8 @@ $
 - ```wait4``` (man 2 wait4)
 - ```write``` (man 2 write)
 
+## Flowchart
+![SimpleShell_Flowchart.jpg](https://github.com/hugh789/holbertonschool-simple_shell/blob/main/SimpleShell_Flowchart.jpg)
 ## Installation
 To install this program, clone this repository using the git clone command as shown below.
 ```bash
@@ -157,6 +160,6 @@ hsh main.c shell.c test_ls_2
 $
 ```
 
-### Simple Shell Team 
+### Contributors
 - [Hugh Fagan](https://github.com/hugh789)
 - [Susmitha Banda](https://github.com/Susmitha-Banda)
